@@ -1,8 +1,17 @@
 import { doGet, doPost } from ".";
 
-export const userLogin = (formdata: any): Promise<any> => {
+export const userSignup = (formdata: any): Promise<any> => {
   return doPost(
-    "http://localhost:3001/api/users",
+    "/api/users",
+    {},
+    {
+      body: JSON.stringify(formdata),
+    }
+  );
+};
+export const userLogin = (formdata: any) => {
+  return doPost(
+    "api/login",
     {},
     {
       headers: {
@@ -13,6 +22,10 @@ export const userLogin = (formdata: any): Promise<any> => {
   );
 };
 
-export const getUsers = (): Promise<any> => {
+export const getUsers = async (): Promise<any> => {
   return doGet("https://jsonplaceholder.typicode.com/todos/1", {}, {});
+};
+
+export const getUser = async (): Promise<any> => {
+  return doGet("/profile", {}, {});
 };

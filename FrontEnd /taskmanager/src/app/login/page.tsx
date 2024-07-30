@@ -1,5 +1,5 @@
 "use client";
-import { userLogin } from "@/api/user.api";
+import { getUsers, userLogin } from "@/api/user.api";
 import Input from "@/components/Input/input";
 import { useEffect, useState } from "react";
 
@@ -14,15 +14,16 @@ const Login = () => {
 
   const func = async () => {
     try {
-      const result = await userLogin(inputState);
-      console.log(result);
+      const { token, user } = await userLogin(inputState);
+      localStorage.setItem("token", token);
     } catch (e) {
       console.log(e);
     }
   };
+
   const getUserData = async () => {
     try {
-      const result = await getUserData();
+      const result = await getUsers();
       console.log(result);
     } catch (e) {
       console.log(e);
@@ -34,11 +35,11 @@ const Login = () => {
   }, []);
 
   const handleInput = (event: any) => {
-    if (event.target.type == "email") {
-      setInputState((prev) => ({ ...prev, email: event.target.value }));
-    } else {
-      setInputState((prev) => ({ ...prev, password: event.target.value }));
-    }
+    const { name, value } = event.target;
+    setInputState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   return (
@@ -74,11 +75,13 @@ const Login = () => {
             placeHolder="email"
             onChangeCallBack={handleInput}
             type="email"
+            name="email"
           />
           <Input
             placeHolder="password"
             onChangeCallBack={handleInput}
             type="password"
+            name="password"
           />
           <button
             style={{ borderRadius: 12, border: "1px solid black", height: 30 }}

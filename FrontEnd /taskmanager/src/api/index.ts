@@ -1,6 +1,8 @@
 "use client";
+import { BASE_URL } from "@/constants/constants";
 import ApiException from "./Api.exception";
 import fetch from "isomorphic-unfetch";
+import { getHeader } from "@/utils/utils";
 
 const doCall = async (
   uri: string,
@@ -10,13 +12,13 @@ const doCall = async (
   }
 ) => {
   const {} = params;
-  let url = uri;
-  const header = {};
-
+  let url = BASE_URL + uri;
+  const header = getHeader();
   return fetch(url, {
     ...options,
     headers: {
       ...options.headers,
+      ...header,
     },
   }).then((res: Response) => {
     if (res.ok === false) {
@@ -48,7 +50,7 @@ export const doGet = (
   params: object = {},
   options?: any
 ): Promise<any> => {
-  return doCall(uri, params, options);
+  return doCall(uri, params, { ...options, method: "GET" });
 };
 export const doPost = (
   uri: string,

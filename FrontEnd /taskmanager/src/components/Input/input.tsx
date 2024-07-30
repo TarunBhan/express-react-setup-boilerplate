@@ -1,13 +1,13 @@
 import { FC } from "react";
 
 const Input: FC<{
-  label?: string;
+  name?: string;
   width?: string;
   onChangeCallBack: (event: any) => void;
   placeHolder: string;
   type?: string;
 }> = ({
-  label,
+  name,
   width = "100%",
   onChangeCallBack,
   placeHolder,
@@ -15,14 +15,15 @@ const Input: FC<{
 }) => {
   return (
     <div style={{ width: "100%" }}>
-      {label && (
+      {/* {label && (
         <div>
           <p>Input</p>
         </div>
-      )}
+      )} */}
       <input
         placeholder={placeHolder}
         type={type}
+        name={name}
         onChange={onChangeCallBack}
         style={{
           borderRadius: "12px",
