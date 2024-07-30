@@ -25,4 +25,4 @@ export const setCookie = (authToken: string) => {
   document.cookie = `refreshToken=${authToken[1]}`;
 };
 
-export const CheckTokenExpiry = () => {};
+export const CheckTokenExpiry = (token: string) => {};
