@@ -31,13 +31,13 @@ mongoose
   });
 
 // Function to encode a string to base64 URL-safe format
-const base64UrlEncode = (str) => {
-  return Buffer.from(str)
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
-};
+// const base64UrlEncode = (str) => {
+//   return Buffer.from(str)
+//     .toString("base64")
+//     .replace(/\+/g, "-")
+//     .replace(/\//g, "_")
+//     .replace(/=+$/, "");
+// };
 
 // Endpoint to create a user and generate a token
 
@@ -99,7 +99,7 @@ app.get("/profile", verifyToken, async (req, res) => {
 //Endpoint With Secured Data
 app.post("/", cookieJwtAuth, (req, res) => {
   console.log(req?.user);
-  res.status(200).jsonp({});
+  res.status(200);
 });
 
 app.listen(PORT, () => {
